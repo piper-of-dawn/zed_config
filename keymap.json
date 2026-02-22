@@ -1,0 +1,134 @@
+[
+  {
+    "context": "Editor && vim_mode == insert && !menu",
+    "bindings": {
+      "q w": "vim::NormalBefore", // in insert mode, make jk escape to normal mode.
+      "w q": "vim::NormalBefore", // in insert mode, make jk escape to normal mode.
+      "ctrl-d": ["editor::SelectNext", { "replace_newest": false }], // editor.action.addSelectionToNextFindMatch  / find_under_expand
+      "ctrl-t": "workspace::NewCenterTerminal",
+      "ctrl-c": "editor::Copy",
+      "ctrl-v": "editor::Paste",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == visual && !VimWaiting && !VimObject && !menu",
+    "bindings": {
+      "p": ["vim::Paste", { "preserve_clipboard": true }],
+      "ctrl-c": "editor::Copy",
+      "ctrl-v": "editor::Paste",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == normal && !menu",
+    "bindings": {
+      "q w": "vim::InsertAfter",
+      "w q": "vim::InsertAfter",
+      "shift-k": "vim::PageUp",
+      "shift-j": "vim::PageDown",
+      "ctrl-d": ["editor::SelectNext", { "replace_newest": false }],
+      // "ctrl-`": "workspace::NewCenterTerminal",
+
+      // Normal desktop-style shortcuts in Vim normal mode
+      "ctrl-a": "editor::SelectAll",
+      "ctrl-c": "editor::Copy",
+      "ctrl-v": "editor::Paste",
+      "ctrl-x": "editor::Cut",
+      "ctrl-z": "editor::Undo",
+      "ctrl-y": "editor::Redo",
+      "ctrl-s": "workspace::Save",
+      "ctrl-shift-s": "workspace::SaveAs",
+      "ctrl-n": "workspace::NewFile",
+    },
+  },
+  {
+    "context": "vim_mode == normal || vim_mode == visual",
+    "bindings": {
+      "s": "vim::PushSneak",
+      "shift-s": "vim::PushSneakBackward",
+    },
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-p": "file_finder::Toggle",
+      "alt-q": "workspace::ToggleCenteredLayout",
+      "ctrl-j": "workspace::NewCenterTerminal",
+      "f5": ["task::Spawn", { "task_name": "echo current file's path" }],
+    },
+  },
+  {
+    "context": "Editor && extension==c",
+    "bindings": {
+      "alt alt": ["task::Spawn", { "task_name": "compile c" }],
+    },
+  },
+  {
+    "context": "Editor && extension==cpp",
+    "bindings": {
+      "alt alt": ["task::Spawn", { "task_name": "compile cpp" }],
+      "ctrl-k alt alt": ["task::Spawn", { "task_name": "debug cpp" }],
+    },
+  },
+  {
+    "context": "Editor && extension==rs",
+    "bindings": {
+      "alt alt": ["task::Spawn", { "task_name": "compile rust" }],
+      "ctrl-f5": ["task::Spawn", { "task_name": "cargo run" }],
+    },
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-alt-c": "assistant::ToggleFocus",
+      "ctrl ctrl": "go_to_line::Toggle",
+      "alt-z": "editor::ToggleSoftWrap",
+      "ctrl-alt-up": "editor::AddSelectionAbove", // Insert Cursor Above
+      "ctrl-alt-down": "editor::AddSelectionBelow", // Insert Cursor Below
+      "alt-shift-up": "editor::DuplicateLineUp",
+      "alt-shift-down": "editor::DuplicateLineDown",
+    },
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-alt-down": "workspace::SwapPaneDown",
+      "ctrl-k ctrl-down": "workspace::MoveFocusedPanelToNextPosition",
+      "ctrl-right": "workspace::DecreaseActiveDockSize",
+      "ctrl-left": "workspace::IncreaseActiveDockSize",
+      "ctrl-down": "workspace::DecreaseActiveDockSize",
+      "ctrl-up": "workspace::IncreaseActiveDockSize",
+    },
+  },
+  {
+    "context": "Editor && edit_prediction",
+    "bindings": {
+      "ctrl-right": "editor::AcceptEditPrediction",
+    },
+  },
+  {
+    "context": "(Editor && mode == full)",
+    "bindings": {},
+  },
+  {
+    "context": "(Editor && mode == full)",
+    "bindings": {
+      "ctrl-k j": null,
+    },
+  },
+  {
+    "bindings": {
+      "ctrl-alt-c": "assistant::ToggleFocus",
+    },
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-alt-d": "workspace::ToggleBottomDock",
+    },
+  },
+  {
+    "bindings": {
+      "ctrl-`": "terminal_panel::ToggleFocus",
+    },
+  },
+]

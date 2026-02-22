@@ -1,0 +1,214 @@
+{
+  "pytest: test function": {
+    "scope": "python",
+    "prefix": "pt",
+    "body": [
+      "import pytest",
+      "",
+      "def test_${1:name}():",
+      "    ${2:assert ${3:1} == ${4:1}}"
+    ],
+    "description": "Bare pytest test function"
+  },
+  "pytest: test class": {
+    "scope": "python",
+    "prefix": "ptc",
+    "body": [
+      "import pytest",
+      "",
+      "class Test${1:Feature}:",
+      "    def test_${2:case}(self):",
+      "        ${3:assert True}"
+    ],
+    "description": "Pytest test class"
+  },
+  "pytest: fixture": {
+    "scope": "python",
+    "prefix": "ptfix",
+    "body": [
+      "import pytest",
+      "",
+      "@pytest.fixture",
+      "def ${1:resource}():",
+      "    ${2:# setup}",
+      "    yield ${3:obj}",
+      "    ${4:# teardown}"
+    ],
+    "description": "Create a pytest fixture"
+  },
+  "pytest: usefixtures mark": {
+    "scope": "python",
+    "prefix": "ptuse",
+    "body": [
+      "import pytest",
+      "",
+      "@pytest.mark.usefixtures(\"${1:fixture}\")",
+      "def test_${2:name}():",
+      "    ${3:assert True}"
+    ],
+    "description": "Mark test to use fixtures"
+  },
+  "pytest: parametrize": {
+    "scope": "python",
+    "prefix": "ptparam",
+    "body": [
+      "import pytest",
+      "",
+      "@pytest.mark.parametrize(\"${1:arg}\", [${2:1, 2, 3}])",
+      "def test_${3:name}(${1:arg}):",
+      "    ${4:assert ${1:arg} ${5:>} ${6:0}}"
+    ],
+    "description": "Parametrized test"
+  },
+  "pytest: parametrize multi + ids": {
+    "scope": "python",
+    "prefix": "ptparamids",
+    "body": [
+      "import pytest",
+      "",
+      "@pytest.mark.parametrize(",
+      "    \"${1:a}, ${2:b}\",",
+      "    [(${3:1}, ${4:2}), (${5:2}, ${6:3})],",
+      "    ids=[\"${7:case1}\", \"${8:case2}\"]",
+      ")",
+      "def test_${9:name}(${1:a}, ${2:b}):",
+      "    ${10:assert ${1:a} + ${2:b} > 0}"
+    ],
+    "description": "Parametrize with multiple arguments and ids"
+  },
+  "pytest: raises": {
+    "scope": "python",
+    "prefix": "ptraises",
+    "body": [
+      "import pytest",
+      "",
+      "def test_${1:raises_error}():",
+      "    with pytest.raises(${2:ValueError}) as exc:",
+      "        ${3:function_call()}",
+      "    ${4:assert \"${5:message}\" in str(exc.value)}"
+    ],
+    "description": "Assert exception is raised"
+  },
+  "pytest: capsys": {
+    "scope": "python",
+    "prefix": "ptcapsys",
+    "body": [
+      "import pytest",
+      "",
+      "def test_${1:stdout}(capsys):",
+      "    ${2:print(\"hello\")}",
+      "    captured = capsys.readouterr()",
+      "    assert captured.out == ${3:\"hello\\n\"}"
+    ],
+    "description": "Capture stdout/stderr with capsys"
+  },
+  "pytest: monkeypatch": {
+    "scope": "python",
+    "prefix": "ptmonkey",
+    "body": [
+      "import pytest",
+      "",
+      "def test_${1:monkeypatch}(monkeypatch):",
+      "    def fake_${2:func}(*args, **kwargs):",
+      "        return ${3:42}",
+      "    monkeypatch.setattr(${4:module}, \"${2:func}\", fake_${2:func})",
+      "    ${5:assert ${6:call_site()} == ${3:42}}"
+    ],
+    "description": "Monkeypatch attribute/function"
+  },
+  "pytest: tmp_path": {
+    "scope": "python",
+    "prefix": "pttmp",
+    "body": [
+      "import pytest",
+      "",
+      "def test_${1:file_ops}(tmp_path):",
+      "    p = tmp_path / \"${2:sample}.txt\"",
+      "    p.write_text(${3:\"data\"}, encoding=\"utf-8\")",
+      "    content = p.read_text(encoding=\"utf-8\")",
+      "    assert content == ${3:\"data\"}"
+    ],
+    "description": "Use tmp_path for filesystem tests"
+  },
+  "pytest: xfail": {
+    "scope": "python",
+    "prefix": "ptxfail",
+    "body": [
+      "import pytest",
+      "",
+      "@pytest.mark.xfail(reason=\"${1:known issue}\")",
+      "def test_${2:xfailing}():",
+      "    ${3:assert False}"
+    ],
+    "description": "Mark test as expected to fail"
+  },
+  "pytest: skipif": {
+    "scope": "python",
+    "prefix": "ptskipif",
+    "body": [
+      "import sys, pytest",
+      "",
+      "@pytest.mark.skipif(sys.platform.startswith(\"${1:win}\"), reason=\"${2:not supported}\")",
+      "def test_${3:skipped}():",
+      "    ${4:assert True}"
+    ],
+    "description": "Conditionally skip test"
+  },
+  "pytest: asyncio": {
+    "scope": "python",
+    "prefix": "ptasync",
+    "body": [
+      "import pytest",
+      "",
+      "@pytest.mark.asyncio",
+      "async def test_${1:async_case}():",
+      "    ${2:result} = await ${3:async_func}(${4:args})",
+      "    assert ${2:result} ${5:==} ${6:expected}"
+    ],
+    "description": "Async test with pytest-asyncio"
+  },
+  "pytest: fixture with params": {
+    "scope": "python",
+    "prefix": "ptfixparam",
+    "body": [
+      "import pytest",
+      "",
+      "@pytest.fixture(params=${1:[1, 2, 3]})",
+      "def ${2:param_fixture}(request):",
+      "    return request.param",
+      "",
+      "def test_${3:uses_param}(${2:param_fixture}):",
+      "    ${4:assert ${2:param_fixture} in ${1:[1, 2, 3]}}"
+    ],
+    "description": "Fixture that parametrizes tests"
+  },
+  "pytest: hypothesis": {
+    "scope": "python",
+    "prefix": "pthypo",
+    "body": [
+      "import pytest",
+      "from hypothesis import given, strategies as st",
+      "",
+      "@given(st.lists(st.integers()))",
+      "def test_${1:property}(xs):",
+      "    ${2:assert sorted(xs) == sorted(list(xs))}"
+    ],
+    "description": "Property-based test with Hypothesis"
+  },
+  "pytest: parametrize indirect": {
+    "scope": "python",
+    "prefix": "ptparamind",
+    "body": [
+      "import pytest",
+      "",
+      "@pytest.fixture",
+      "def ${1:cfg}(request):",
+      "    return ${2:build_cfg}(request.param)",
+      "",
+      "@pytest.mark.parametrize(\"${1:cfg}\", [${3:\"dev\"}, ${4:\"prod\"}], indirect=True)",
+      "def test_${5:indirect}(${1:cfg}):",
+      "    ${6:assert ${1:cfg}[\"env\"] in (${3:\"dev\"}, ${4:\"prod\"})}"
+    ],
+    "description": "Parametrize with indirect fixture"
+  }
+}
