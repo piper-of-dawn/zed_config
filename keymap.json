@@ -131,4 +131,16 @@
       "ctrl-`": "terminal_panel::ToggleFocus",
     },
   },
+  {
+    "context": "vim_mode == insert",
+    "bindings": {
+      "ctrl-i": "assistant::InlineAssist"
+    }
+  },
+  {
+    "context": "vim_mode == insert",
+    "bindings": {
+      "ctrl-x ctrl-a": null
+    }
+  }
 ]
